@@ -16,7 +16,7 @@
 
   --radius: 6px;
 
-  --c-wishlist: #9d6bff;
+  --c-notstarted: #9d6bff;
   --c-applied: #3a86ff;
   --c-interviewing: #f6b93b;
   --c-offer: #2ee6a1;
@@ -174,6 +174,66 @@ body {
   color: var(--text-muted);
 }
 
+/* ---------- Race strategy ---------- */
+.strategy {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.2rem 1rem 0.9rem;
+  margin-top: 1.2rem;
+}
+
+.strategy .section-title { margin-top: 0.9rem; }
+
+.best-order {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.order-num {
+  flex-shrink: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--jdm-red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+
+.order-text { font-size: 0.98rem; font-weight: 500; }
+.order-text strong { font-family: var(--font-display); font-style: italic; letter-spacing: 0.02em; }
+
+.caution-flags {
+  margin-top: 0.8rem;
+  border-top: 1px dashed var(--line);
+  padding-top: 0.7rem;
+}
+
+.caution {
+  margin: 0.3rem 0 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.caution strong { color: var(--gold); }
+.caution:last-child strong { color: var(--jdm-red); }
+
 /* ---------- Pit lane (career links) ---------- */
 .pit-links {
   display: flex;
@@ -210,6 +270,11 @@ body {
   border-radius: 50%;
   background: var(--neon-teal);
   box-shadow: 0 0 6px var(--neon-teal);
+}
+
+.pit-link.pit-monitor::before {
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold);
 }
 
 .pit-link:hover,
@@ -330,7 +395,7 @@ body {
   padding: 0.9rem 1rem;
 }
 
-.app-card[data-status="Wishlist"]      { border-left-color: var(--c-wishlist); }
+.app-card[data-status="Not Started"]   { border-left-color: var(--c-notstarted); }
 .app-card[data-status="Applied"]       { border-left-color: var(--c-applied); }
 .app-card[data-status="Interviewing"]  { border-left-color: var(--c-interviewing); }
 .app-card[data-status="Offer"]         { border-left-color: var(--c-offer); box-shadow: 0 0 18px rgba(46, 230, 161, 0.12); }
@@ -375,12 +440,33 @@ body {
   white-space: nowrap;
 }
 
-.badge-Wishlist      { color: var(--c-wishlist);      border-color: var(--c-wishlist); }
+.badge-NotStarted    { color: var(--c-notstarted);    border-color: var(--c-notstarted); }
 .badge-Applied       { color: var(--c-applied);       border-color: var(--c-applied); }
 .badge-Interviewing  { color: var(--c-interviewing);  border-color: var(--c-interviewing); }
 .badge-Offer         { color: var(--c-offer);         border-color: var(--c-offer); box-shadow: 0 0 8px rgba(46,230,161,0.35); }
 .badge-Rejected      { color: var(--c-rejected);      border-color: var(--c-rejected); }
 .badge-NoResponse    { color: var(--c-noresponse);    border-color: var(--c-noresponse); }
+
+.card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.chip {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 3px;
+}
+
+.chip-High   { background: rgba(230, 57, 70, 0.16);  color: #ff7b85; }
+.chip-Medium { background: rgba(246, 185, 59, 0.14); color: var(--gold); }
+.chip-Low    { background: rgba(108, 117, 133, 0.2); color: var(--text-muted); }
+.chip-group  { background: rgba(58, 134, 255, 0.14); color: #7cb0ff; }
 
 .card-meta {
   display: flex;
@@ -397,10 +483,23 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-muted);
-  white-space: pre-wrap;
   border-top: 1px dashed var(--line);
   padding-top: 0.5rem;
 }
+
+.card-notes summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--euro-blue);
+}
+
+.card-notes summary:hover { color: var(--neon-teal); }
+
+.card-notes p { margin: 0.4rem 0 0; white-space: pre-wrap; }
 
 .card-actions {
   display: flex;

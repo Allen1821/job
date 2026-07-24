@@ -17,7 +17,7 @@
     <div class="header-inner">
       <p class="header-kicker">// CELJAN'S CAREER GARAGE</p>
       <h1>AIRLINE JOB TRACKER</h1>
-      <p class="subtitle">Shift through the gears — Wishlist to Offer. No lift.</p>
+      <p class="subtitle">34 verified openings, official links only · researched July 23, 2026</p>
     </div>
   </header>
 
@@ -42,11 +42,24 @@
       </div>
     </section>
 
-    <!-- Pit lane: official career pages -->
+    <!-- Race strategy: best application order from the spreadsheet dashboard -->
+    <section class="strategy" aria-label="Best application order">
+      <div class="section-title">
+        <h2>RACE STRATEGY</h2>
+        <span class="section-sub">Best application order — hit these first</span>
+      </div>
+      <ol class="best-order" id="best-order"></ol>
+      <div class="caution-flags">
+        <p class="caution">⚠️ <strong>Breeze rule:</strong> only ONE flight-attendant application every 3 months. Apply to <strong>Tampa</strong> first — leave the other Breeze rows as backups.</p>
+        <p class="caution">🚩 <strong>Spirit Airlines shut down May 2, 2026.</strong> Treat any new Spirit job ad as a scam.</p>
+      </div>
+    </section>
+
+    <!-- Pit lane: official career pages from the watchlist -->
     <section class="pit-lane" aria-label="Official airline career pages">
       <div class="section-title">
         <h2>PIT LANE</h2>
-        <span class="section-sub">Official airline career pages — tap to apply direct</span>
+        <span class="section-sub">Official career pages — 🟢 open now · 🟠 monitor</span>
       </div>
       <div class="pit-links" id="pit-links"></div>
     </section>
@@ -59,18 +72,25 @@
       </div>
       <select id="filter-status" aria-label="Filter by status">
         <option value="">All statuses</option>
-        <option value="Wishlist">Wishlist</option>
+        <option value="Not Started">Not Started</option>
         <option value="Applied">Applied</option>
         <option value="Interviewing">Interviewing</option>
         <option value="Offer">Offer</option>
         <option value="Rejected">Rejected</option>
         <option value="No Response">No Response</option>
       </select>
+      <select id="filter-group" aria-label="Filter by region">
+        <option value="">All regions</option>
+        <option value="Tampa Bay">Tampa Bay</option>
+        <option value="Orlando">Orlando</option>
+        <option value="Other Florida">Other Florida</option>
+        <option value="National / Relocation">National / Relocation</option>
+      </select>
       <select id="sort-by" aria-label="Sort applications">
-        <option value="date-desc">Newest first</option>
-        <option value="date-asc">Oldest first</option>
+        <option value="best">Best order</option>
         <option value="airline">Airline A–Z</option>
         <option value="status">By status</option>
+        <option value="date-desc">Recently applied</option>
       </select>
       <div class="io-buttons">
         <button class="btn btn-ghost" id="btn-export">EXPORT CSV</button>
@@ -81,7 +101,7 @@
 
     <div class="section-title">
       <h2>THE GRID</h2>
-      <span class="section-sub">Your applications, ranked and ready</span>
+      <span class="section-sub">Tampa Bay → Orlando → Other Florida → National. Tap APPLY to open the official posting.</span>
     </div>
 
     <!-- Application list -->
@@ -111,20 +131,17 @@
         <div class="form-grid">
           <label>
             Airline / Company *
-            <input type="text" id="f-airline" required placeholder="e.g. Delta Air Lines" list="airline-suggestions" />
+            <input type="text" id="f-airline" required placeholder="e.g. Breeze Airways" list="airline-suggestions" />
             <datalist id="airline-suggestions">
-              <option value="American Airlines"></option>
+              <option value="Breeze Airways"></option>
+              <option value="Allegiant Air"></option>
+              <option value="JetBlue"></option>
+              <option value="Frontier Airlines"></option>
               <option value="Delta Air Lines"></option>
+              <option value="American Airlines"></option>
               <option value="United Airlines"></option>
               <option value="Southwest Airlines"></option>
-              <option value="JetBlue"></option>
               <option value="Alaska Airlines"></option>
-              <option value="Spirit Airlines"></option>
-              <option value="Frontier Airlines"></option>
-              <option value="Allegiant Air"></option>
-              <option value="Hawaiian Airlines"></option>
-              <option value="Breeze Airways"></option>
-              <option value="Sun Country Airlines"></option>
               <option value="Envoy Air"></option>
               <option value="SkyWest Airlines"></option>
               <option value="Republic Airways"></option>
@@ -132,7 +149,11 @@
               <option value="Piedmont Airlines"></option>
               <option value="Endeavor Air"></option>
               <option value="Avelo Airlines"></option>
-              <option value="Silver Airways"></option>
+              <option value="Contour Airlines"></option>
+              <option value="Sun Country Airlines"></option>
+              <option value="Swissport"></option>
+              <option value="Menzies Aviation"></option>
+              <option value="GlobalX"></option>
             </datalist>
           </label>
           <label>
@@ -144,14 +165,40 @@
             <input type="text" id="f-location" placeholder="e.g. Tampa, FL" />
           </label>
           <label>
+            Region
+            <select id="f-group">
+              <option value="">—</option>
+              <option value="Tampa Bay">Tampa Bay</option>
+              <option value="Orlando">Orlando</option>
+              <option value="Other Florida">Other Florida</option>
+              <option value="National / Relocation">National / Relocation</option>
+            </select>
+          </label>
+          <label>
+            Priority
+            <select id="f-priority">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </label>
+          <label>
+            Employment Type
+            <input type="text" id="f-type" placeholder="e.g. Full-time" />
+          </label>
+          <label>
+            Pay / Compensation
+            <input type="text" id="f-pay" placeholder="e.g. $25.00–$37.50 / flight hour" />
+          </label>
+          <label>
             Date Applied
             <input type="date" id="f-date" />
           </label>
           <label>
             Status
             <select id="f-status">
-              <option value="Wishlist">Wishlist</option>
-              <option value="Applied" selected>Applied</option>
+              <option value="Not Started" selected>Not Started</option>
+              <option value="Applied">Applied</option>
               <option value="Interviewing">Interviewing</option>
               <option value="Offer">Offer</option>
               <option value="Rejected">Rejected</option>
