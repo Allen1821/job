@@ -468,6 +468,14 @@ body {
 .chip-Low    { background: rgba(108, 117, 133, 0.2); color: var(--text-muted); }
 .chip-group  { background: rgba(58, 134, 255, 0.14); color: #7cb0ff; }
 
+.card-desc {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  opacity: 0.88;
+}
+
 .card-meta {
   display: flex;
   flex-wrap: wrap;
@@ -514,7 +522,39 @@ body {
   font-size: 0.78rem;
 }
 
-.card-actions .btn-apply { margin-right: auto; }
+.card-actions .btn-ghost { margin-left: auto; }
+
+.applied-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.applied-check input {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0;
+  accent-color: var(--c-offer);
+  cursor: pointer;
+}
+
+.applied-check:has(input:checked) {
+  border-color: var(--c-offer);
+  color: var(--c-offer);
+  box-shadow: 0 0 10px rgba(46, 230, 161, 0.2);
+}
 
 /* ---------- Empty state ---------- */
 .empty-state {
