@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1b3a6b" />
+  <title>Airline Job Application Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1>✈️ Airline Job Tracker</h1>
+      <p class="subtitle">Track every application, interview, and offer</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Stats -->
+    <section class="stats" id="stats" aria-label="Application statistics">
+      <div class="stat-card">
+        <span class="stat-number" id="stat-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-applied">0</span>
+        <span class="stat-label">Applied</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-interview">0</span>
+        <span class="stat-label">Interviews</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" id="stat-offer">0</span>
+        <span class="stat-label">Offers</span>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="toolbar">
+      <button class="btn btn-primary" id="btn-add">+ Add Application</button>
+      <div class="search-wrap">
+        <input type="search" id="search" placeholder="Search airline, position, city…" aria-label="Search applications" />
+      </div>
+      <select id="filter-status" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="Wishlist">Wishlist</option>
+        <option value="Applied">Applied</option>
+        <option value="Interviewing">Interviewing</option>
+        <option value="Offer">Offer</option>
+        <option value="Rejected">Rejected</option>
+        <option value="No Response">No Response</option>
+      </select>
+      <select id="sort-by" aria-label="Sort applications">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="airline">Airline A–Z</option>
+        <option value="status">By status</option>
+      </select>
+      <div class="io-buttons">
+        <button class="btn btn-ghost" id="btn-export">Export CSV</button>
+        <button class="btn btn-ghost" id="btn-import">Import CSV</button>
+        <input type="file" id="import-file" accept=".csv,text/csv" hidden />
+      </div>
+    </section>
+
+    <!-- Application list -->
+    <section id="app-list" class="app-list" aria-live="polite"></section>
+
+    <div id="empty-state" class="empty-state hidden">
+      <div class="empty-icon">🛫</div>
+      <h2>No applications yet</h2>
+      <p>Tap <strong>+ Add Application</strong> to log your first one, or import your spreadsheet as a CSV.</p>
+    </div>
+  </main>
+
+  <!-- Add / Edit modal -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h2 id="modal-title">Add Application</h2>
+        <button class="btn-close" id="btn-close-modal" aria-label="Close">&times;</button>
+      </div>
+      <form id="app-form">
+        <input type="hidden" id="edit-id" />
+        <div class="form-grid">
+          <label>
+            Airline / Company *
+            <input type="text" id="f-airline" required placeholder="e.g. Delta Air Lines" list="airline-suggestions" />
+            <datalist id="airline-suggestions">
+              <option value="American Airlines"></option>
+              <option value="Delta Air Lines"></option>
+              <option value="United Airlines"></option>
+              <option value="Southwest Airlines"></option>
+              <option value="JetBlue"></option>
+              <option value="Alaska Airlines"></option>
+              <option value="Spirit Airlines"></option>
+              <option value="Frontier Airlines"></option>
+              <option value="Allegiant Air"></option>
+              <option value="Hawaiian Airlines"></option>
+              <option value="Breeze Airways"></option>
+              <option value="Sun Country Airlines"></option>
+              <option value="Envoy Air"></option>
+              <option value="SkyWest Airlines"></option>
+              <option value="Republic Airways"></option>
+              <option value="PSA Airlines"></option>
+              <option value="Piedmont Airlines"></option>
+              <option value="Endeavor Air"></option>
+              <option value="Avelo Airlines"></option>
+              <option value="Silver Airways"></option>
+            </datalist>
+          </label>
+          <label>
+            Position *
+            <input type="text" id="f-position" required placeholder="e.g. Flight Attendant" />
+          </label>
+          <label>
+            Location
+            <input type="text" id="f-location" placeholder="e.g. Tampa, FL" />
+          </label>
+          <label>
+            Date Applied
+            <input type="date" id="f-date" />
+          </label>
+          <label>
+            Status
+            <select id="f-status">
+              <option value="Wishlist">Wishlist</option>
+              <option value="Applied" selected>Applied</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+              <option value="No Response">No Response</option>
+            </select>
+          </label>
+          <label>
+            Job Posting Link
+            <input type="url" id="f-link" placeholder="https://…" />
+          </label>
+          <label class="full-width">
+            Notes
+            <textarea id="f-notes" rows="3" placeholder="Contacts, interview dates, follow-ups…"></textarea>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="btn-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
