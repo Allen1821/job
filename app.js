@@ -4,6 +4,29 @@
   const STORAGE_KEY = "airline-job-tracker";
   const STATUSES = ["Wishlist", "Applied", "Interviewing", "Offer", "Rejected", "No Response"];
 
+  // Official airline career pages — the "Pit Lane" quick-apply row.
+  const CAREER_PAGES = [
+    ["American Airlines", "https://jobs.aa.com"],
+    ["Delta Air Lines", "https://careers.delta.com"],
+    ["United Airlines", "https://careers.united.com"],
+    ["Southwest", "https://careers.southwestair.com"],
+    ["JetBlue", "https://careers.jetblue.com"],
+    ["Alaska Airlines", "https://careers.alaskaair.com"],
+    ["Spirit", "https://careers.spirit.com"],
+    ["Frontier", "https://careers.flyfrontier.com"],
+    ["Allegiant", "https://careers.allegiantair.com"],
+    ["Hawaiian", "https://careers.hawaiianairlines.com"],
+    ["Breeze Airways", "https://www.flybreeze.com/careers"],
+    ["Sun Country", "https://suncountry.com/careers"],
+    ["Avelo", "https://www.aveloair.com/careers"],
+    ["SkyWest", "https://www.skywest.com/skywest-airline-jobs"],
+    ["Envoy Air", "https://www.envoyair.com/careers"],
+    ["Republic Airways", "https://www.rjet.com/careers"],
+    ["PSA Airlines", "https://www.psaairlines.com/careers"],
+    ["Piedmont", "https://piedmont-airlines.com/careers"],
+    ["Endeavor Air", "https://www.endeavorair.com/careers"],
+  ];
+
   /** @type {Array<{id:string, airline:string, position:string, location:string, date:string, status:string, link:string, notes:string}>} */
   let applications = load();
 
@@ -96,11 +119,11 @@
     const metaParts = [];
     if (app.location) metaParts.push(`<span>📍 ${escapeHtml(app.location)}</span>`);
     if (app.date) metaParts.push(`<span>🗓 ${formatDate(app.date)}</span>`);
-    if (app.link) {
-      metaParts.push(
-        `<a href="${escapeAttr(app.link)}" target="_blank" rel="noopener noreferrer">🔗 Job posting</a>`
-      );
-    }
+
+    const applyBtn =
+      app.link && escapeAttr(app.link) !== "#"
+        ? `<a class="btn-apply" href="${escapeAttr(app.link)}" target="_blank" rel="noopener noreferrer">APPLY →</a>`
+        : "";
 
     card.innerHTML = `
       <div class="card-top">
@@ -113,8 +136,9 @@
       ${metaParts.length ? `<div class="card-meta">${metaParts.join("")}</div>` : ""}
       ${app.notes ? `<p class="card-notes">${escapeHtml(app.notes)}</p>` : ""}
       <div class="card-actions">
-        <button class="btn btn-ghost" data-action="edit">Edit</button>
-        <button class="btn btn-danger" data-action="delete">Delete</button>
+        ${applyBtn}
+        <button class="btn btn-ghost" data-action="edit">EDIT</button>
+        <button class="btn btn-danger" data-action="delete">DELETE</button>
       </div>
     `;
 
@@ -366,6 +390,16 @@
     return "Applied";
   }
 
+  // ---------- Pit lane ----------
+  function renderPitLane() {
+    const wrap = document.getElementById("pit-links");
+    wrap.innerHTML = CAREER_PAGES.map(
+      ([name, url]) =>
+        `<a class="pit-link" href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(name)}</a>`
+    ).join("");
+  }
+
   // ---------- Init ----------
+  renderPitLane();
   render();
 })();
